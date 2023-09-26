@@ -8,6 +8,7 @@ export const Login = (props) => {
     const [pass, setPass] = useState('');
     const [user, setUser] = useState('');
 
+    /* this grabs the current user */
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
     });
@@ -33,7 +34,6 @@ export const Login = (props) => {
     return (
         <div className="App">
             <div className="auth-form-container">
-                
                 <h2>Login</h2>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
@@ -41,7 +41,7 @@ export const Login = (props) => {
 
                     <label htmlFor="password">Password</label>
                     <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="**********" id="password" name="password"/>
-                    
+    
                     <button onClick={login} type="submit">Log in</button>
                 </form>
                 {/*<button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here</button>*/}
