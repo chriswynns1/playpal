@@ -7,9 +7,9 @@ function Hero(props) {
       <div className={props.cName}>
         <img className="fit" alt="HeroImg" src={require('./assets/2.jpg')}></img>
         <div className='hero-text'>
-            <h1>Game discovery made easy</h1>
+            <h1>Game discovery made easy.</h1>
             <p>Finding games to play with friends has never been easier.</p>
-            <a href="/">Start now</a>
+            <a href="/register" className='button'>Start now</a>
         </div>
       </div>
     </>

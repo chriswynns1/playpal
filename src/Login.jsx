@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
 import './App.css';
 
 export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [user, setUser] = useState('');
-
-    /* this grabs the current user */
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    });
+    const navigate = useNavigate(); // Create a navigate function
 
     const login = async () => {
         try {
             const user = await signInWithEmailAndPassword(
                 auth, email, pass
             );
-            //console.log(email);
-            console.log(onAuthStateChanged);
+            console.log("User logged in successfully");
+            navigate('/profile'); // Redirect to the profile page
         }
         catch (error) {
             console.log(error.message);
@@ -28,7 +24,7 @@ export const Login = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        login(); // Call the login function when the form is submitted
     }
 
     return (
@@ -42,11 +38,10 @@ export const Login = (props) => {
                     <label htmlFor="password">Password</label>
                     <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="**********" id="password" name="password"/>
     
-                    <button onClick={login} type="submit">Log in</button>
+                    <button type="submit">Log in</button>
                 </form>
-                {/*<button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here</button>*/}
-                <h4>User logged in:</h4>
-                {user?.email}
+                <br></br>
+                <a href="/register" className="white-text">Don't have an account? Register here.</a>
             </div>
         </div>
     )

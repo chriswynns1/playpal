@@ -5,11 +5,6 @@ import { auth } from "./firebase-config";
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [user, setUser] = useState('');
-
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    });
 
     //const [name, setName] = useState('');
 
@@ -43,9 +38,8 @@ export const Register = (props) => {
             
                     <button onClick={register} type="submit">Register</button>
                 </form>
-                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here</button>
-            <h4>User logged in:</h4>
-            {user?.email}
+            <br></br>
+            <a href="/login" className="white-text">Already have an account? Log in here.</a>
             </div>
         </div>
     )
