@@ -1,6 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from '@firebase/firestore';
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,8 +16,9 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASURE_ID
 };
 
-
+// init firebase connection
 const app = initializeApp(firebaseConfig);
 
+// init firestore
+export const db = getFirestore(app);
 export const auth = getAuth(app);
-

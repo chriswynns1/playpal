@@ -15,8 +15,9 @@ function Navbar() {
 
         <div>
           <ul id="navbar">
-            <li><a href="index.html">Home</a></li>
-              <li><a href="index.html" className="active">Login</a></li>
+            <li><a href="/">Home</a></li>
+              <li><a href="/profile">Profile</a></li>
+              <li><a href="/login" className="active">Login</a></li>
               <li><a href="index.html">Find Games</a></li>
               <li><a href="index.html">Search</a></li>
           </ul>

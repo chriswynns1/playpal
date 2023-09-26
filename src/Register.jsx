@@ -31,20 +31,22 @@ export const Register = (props) => {
     }
 
     return (
-        <div className="auth-form-container">
-            <h2>Register</h2>
-            <form className="register-form" onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" id="email" name="email"/>
-
-                <label htmlFor="password">Password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="**********" id="password" name="password"/>
-                
-                <button onClick={register} type="submit">Register</button>
-            </form>
-            <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here</button>
-        <h4>User logged in:</h4>
-        {user?.email}
+        
+        <div className="App">
+            <div className="auth-form-container">
+                <h2>Register</h2>
+                <form className="register-form" onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email</label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" id="email" name="email"/>
+                    <label htmlFor="password">Password</label>
+                    <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="**********" id="password" name="password"/>
+            
+                    <button onClick={register} type="submit">Register</button>
+                </form>
+                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here</button>
+            <h4>User logged in:</h4>
+            {user?.email}
+            </div>
         </div>
     )
 }
