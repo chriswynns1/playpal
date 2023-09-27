@@ -35,7 +35,7 @@ h2 {
     content: "";
     display: table;
     clear: both;
-  }
+}
 
   @media (max-width: 600px) {
     .column {

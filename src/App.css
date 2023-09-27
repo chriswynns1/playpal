@@ -56,3 +56,13 @@ button {
 .white-text {
   color: white;
 }
+
+.redirect-p{
+  color: white;
+  padding-top: 100px;
+  text-align: center;
+  text-justify: center;
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(79deg, #1c32fa, #8463fa 48%, #ffaff4);
+}

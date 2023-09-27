@@ -13,11 +13,11 @@ export const Login = ({setIsAuthenticated}) => {
         try {
             const user = await signInWithEmailAndPassword(auth, email, pass);
 
-    
             // Set isAuthenticated status in localStorage
             localStorage.setItem('isAuthenticated', 'true');
             setIsAuthenticated(true);
             navigate('/profile'); // Redirect to the profile page
+            window.location.reload(false);
         }
         catch (error) {
             console.log(error.message);

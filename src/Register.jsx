@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-
+    const navigate = useNavigate();
     //const [name, setName] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
+        navigate('/regsuccess');
     }
 
     const register = async () => {
@@ -20,6 +23,7 @@ export const Register = (props) => {
                 email,
                 pass
             );
+
         } catch (error) {
             console.log(error.message);
         }

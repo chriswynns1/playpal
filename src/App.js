@@ -6,8 +6,10 @@ import Home from './Home';
 import Profile from './Profile';
 import Navbar from './Navbar';
 import Error from './Error';
+import RegSuccess from './RegSuccess';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { checkUserAuthentication } from './Auth';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,6 +42,7 @@ function App() {
             path="/login"
             element={<Login setIsAuthenticated={setIsAuthenticated} />}
           />
+          <Route path="/regsuccess" element={<RegSuccess />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
