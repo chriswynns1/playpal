@@ -4,17 +4,19 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
 import './App.css';
 
-export const Login = (props) => {
+export const Login = ({setIsAuthenticated}) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const navigate = useNavigate(); // Create a navigate function
-
+    
     const login = async () => {
         try {
-            const user = await signInWithEmailAndPassword(
-                auth, email, pass
-            );
-            console.log("User logged in successfully");
+            const user = await signInWithEmailAndPassword(auth, email, pass);
+
+    
+            // Set isAuthenticated status in localStorage
+            localStorage.setItem('isAuthenticated', 'true');
+            setIsAuthenticated(true);
             navigate('/profile'); // Redirect to the profile page
         }
         catch (error) {
