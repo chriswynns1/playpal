@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Login } from './Login';
-import { Register } from './Register';
-import Home from './Home';
-import Profile from './Profile';
-import Navbar from './Navbar';
-import Error from './Error';
-import RegSuccess from './RegSuccess';
+import { Login } from './components/Login';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import Navbar from './components/Navbar';
+import Error from './components/Error';
+import RegSuccess from './components/RegSuccess'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { checkUserAuthentication } from './Auth';
+import { checkUserAuthentication } from './components/Auth';
+import { AuthProvider } from './components/AuthenticationContext';
+import Redirect from './components/Redirect';
+import Dashboard from './components/Dashboard';
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <div>
+      <AuthProvider>
       <Router>
         <div className="header">
           <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
@@ -37,15 +40,17 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/register" element={<Register />} />
           <Route
             path="/login"
             element={<Login setIsAuthenticated={setIsAuthenticated} />}
           />
           <Route path="/regsuccess" element={<RegSuccess />} />
+          <Route path="/redirect" element={<Redirect />} />
           <Route path="*" element={<Error />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
+      </AuthProvider>
     </div>
   );
 }

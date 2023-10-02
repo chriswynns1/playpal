@@ -1,4 +1,4 @@
-import { auth } from "./firebase-config"; // Import your Firebase authentication instance
+import { auth } from "../firebase-config"; // Import your Firebase authentication instance
 
 export function checkUserAuthentication() {
   return new Promise((resolve, reject) => {

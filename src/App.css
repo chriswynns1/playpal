@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
   display: flex;
@@ -6,6 +7,12 @@
   justify-content: center;
   background-image: linear-gradient(79deg, #1c32fa, #8463fa 48%, #ffaff4);
   color: white;
+}
+
+.profile {
+  min-height: 100vh;
+  color: white;
+  padding-top: 30px;
 }
 
 .auth-form-container, .login-form, .register-form {
@@ -26,6 +33,7 @@
   border-radius: 10px;
   margin: 0.5rem;
 }
+
 label {
   text-align: left;
   padding: 0.25rem 0;
@@ -34,8 +42,8 @@ label {
 input {
   margin: 0.5rem 0;
   padding: 1rem;
-  border: none;
-  border-radius: 10px;
+  border-color: white;
+  border-radius: 7px;
 }
 
 button {
@@ -65,4 +73,16 @@ button {
   width: 100%;
   min-height: 100vh;
   background-image: linear-gradient(79deg, #1c32fa, #8463fa 48%, #ffaff4);
+}
+
+.dash-banner {
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+h1.dash-head {
+  font-size: 5rem;
 }

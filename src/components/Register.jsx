@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase-config";
+import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 
@@ -42,6 +42,7 @@ export const Register = (props) => {
             
                     <button onClick={register} type="submit">Register</button>
                 </form>
+                <a href='http://localhost:5000/auth/steam'>Login with Steam</a>
             <br></br>
             <a href="/login" className="white-text">Already have an account? Log in here.</a>
             </div>

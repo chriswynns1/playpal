@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
+
 }
-  
 
 .profile-card {
     text-align: center;
@@ -10,7 +10,6 @@
 
 .header {
     padding: 30px;
-    text-align: center;
     font-size: 30px;
 }
 
@@ -42,3 +41,33 @@ h2 {
       width: 100%;
     }
   }
+
+  .avatar {
+    background-color: aliceblue;
+  }
+
+  .avipic {
+    display: block;
+    padding-left: 20px;
+    float: left;
+  }
+
+  .right-card {
+    text-justify: left;
+    margin-left: 220px;
+    font-size: 26px;
+    padding-bottom: 10px;
+  }
+
+  .below-banner {
+    text-justify: left;
+    margin-left: 0px;
+    padding-left: 60px;
+    font-size: 20px;
+    display: flex;
+  }
+
+.steam-in.input[input=text] {
+    border: 100px;
+    padding-left: 10;
+}
