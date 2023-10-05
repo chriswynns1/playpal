@@ -8,9 +8,12 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
 function Dashboard() {
+
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [gameData, setGameData] = useState(null);
+  
 
   // making sure user is loggeed in
   useEffect(() => {
@@ -23,6 +26,29 @@ function Dashboard() {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const snap = await getDoc(doc(db, 'owned_games', user.uid));
+        if (snap.exists()) {
+          const gameData = snap.data();
+          setGameData(gameData);
+        } else {
+          console.log('No such document');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Set loading to false regardless of success or failure
+      }
+    };
+      // Fetch data only if user is authenticated
+      if (user) {
+        fetchGames();
+        console.log('gamedata:', gameData);
+      }
+  }, [user]);
 
     // grab data from firestore with doc name matching uid
   useEffect(() => {
