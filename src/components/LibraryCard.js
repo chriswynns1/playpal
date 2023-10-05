@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LibraryCard() {
+function LibraryCard(appid, i) {
   return (
     <div>
         <div class="transitioninset-0 ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 max-w-sm backdrop-blur-sm bg-white/20 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
