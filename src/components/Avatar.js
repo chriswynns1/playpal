@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 function Avatar({profilepic, username, steamId}) {
-
+    const [loading, setLoading] = useState(true);
     console.log(profilepic);
 
     // handle the click to refresh steam library

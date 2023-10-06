@@ -99,11 +99,11 @@ function Dashboard() {
               <DashHead
                 appid = '493520'
               />
-              <Avatar 
-                profilepic = {userData.avatarLarge}
-                username = {userData.username}
-                steamId = {userData.steamid}
-              />
+            {userData && (<Avatar 
+              profilepic = {userData.avatarLarge}
+              username = {userData.username}
+              steamId = {userData.steamid}
+            />)}
             </div>
           </div>
           <h1 className="white-text text-2xl ml-8 pt-4">What Your Friends are Playing</h1>
