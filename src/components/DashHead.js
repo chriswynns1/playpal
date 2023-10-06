@@ -65,7 +65,7 @@ function DashHead({appid}) {
 
   return (
     <div class="transitioninset-0 ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 max-w-4xl backdrop-blur-sm bg-white/20 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
+      <a href={`https://store.steampowered.com/app/${appid}`} target="_blank">
         <img
           className="rounded-t-lg"
           src={imageUrl || require('../assets/dash-head-placeholder.jpg')}
@@ -73,7 +73,7 @@ function DashHead({appid}) {
         />
       </a>
       <div class="p-3">
-        <a href="#">
+        <a href={`https://store.steampowered.com/app/${appid}`} target="_blank">
           <h5 class="mb-2 text-2xl tracking-tight text-white">
             {gameInfo.name}
           </h5>

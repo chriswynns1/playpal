@@ -32,11 +32,11 @@ function LibraryCard({game, name, appid}) {
   return (
     <div>
         <div class="transitioninset-0 ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 max-w-sm backdrop-blur-sm bg-white/20 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
+        <a href={`https://store.steampowered.com/app/${appid}`} target="_blank">
                 <img class="rounded-t-lg object-scale-down  w-[250px] h-[225px]" src={imageUrl || noImageFound} alt={name} />
             </a>
             <div class="p-3">
-                <a href="#">
+                <a href={`https://store.steampowered.com/app/${appid}`} target="_blank">
                     <h5 class="mb-2 text-xl tracking-tight text-white">{name}</h5>
                 </a>
                 <p class="font-normal text-white dark:text-gray-400">{appid}</p>

@@ -18,7 +18,7 @@ const SteamSignInButton = () => {
       // If the above line executes without error, the user is signed in.
       // You can perform additional actions if needed.
       console.log('User signed in with Steam');
-      navigate('/profile')
+      navigate('/dashboard')
     } catch (error) {
       console.error('Steam sign-in error:', error);
     }
