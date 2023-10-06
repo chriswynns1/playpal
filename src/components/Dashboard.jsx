@@ -93,7 +93,7 @@ function Dashboard() {
     <>
     <div className="bg-gradient-to-r from-black to-blue-800 min-h-screen">
         <div className="lg:mx-40 mx-10">
-            <h1 className="white-text text-2xl ml-4 pt-4">Game of the Week</h1>
+            <h1 className="white-text text-2xl ml-4 pt-20">Game of the Week</h1>
           <div className="">
             <div className="flex flex-row justify-between animate-slideup content-center sm:mx-10 lg:mx-20 pt-2">
               <DashHead
@@ -110,12 +110,12 @@ function Dashboard() {
           <div className="animate-slideup content-center sm:mx-10 lg:mx-20 pt-2 flex-wrap">
             <FriendsPlaying />
           </div>
-          <h1 className="white-text text-2xl ml-8 pt-4">Reccommended for You</h1>
+          <h1 className="white-text text-2xl ml-8 pt-4">Recommended for You</h1>
           <div className="animate-slideup content-center sm:mx-10 lg:mx-20 pt-2 flex-wrap">
             <FriendsPlaying />
           </div>
           <h1 className="white-text text-2xl ml-8 pt-4">Library</h1>
-          <div className="animate-slideup content-center sm:mx-10 lg:mx-20 pt-2 flex flex-wrap gap-8 sm:justify-start justify-center">
+          <div className="animate-slideup content-center sm:mx-10 lg:mx-20 pt-2 grid grid-cols-5 gap-8 sm:justify-start justify-center">
           {gameData?.map((game, i) => (
             <LibraryCard 
               key={i} 

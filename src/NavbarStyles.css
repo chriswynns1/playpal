@@ -4,11 +4,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: white;
 }
 
 .container {
-  max-width: 1100px;
+
   margin: 0 auto;
   padding: 0 15px;
   display: flex;
@@ -18,9 +17,14 @@ body {
 }
 
 .navbar {
+  width: 100%;
   height: 60px;
-  background-color: white;
-  position: relative;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  justify-content: space-between;
+  top: 0;
+  display: flex;
+  z-index: 1000;
 }
 
 .menu-icon {
@@ -28,6 +32,7 @@ body {
 }
 
 .nav-elements ul {
+  margin-right: 40px;
   display: flex;
   justify-content: space-between;
   list-style-type: none;
@@ -41,12 +46,48 @@ body {
 .nav-elements ul a {
   font-size: 24px;
   font-weight: 400;
-  color: #2f234f;
+  color: white;
+  text-decoration: none;
+  background-image: linear-gradient(
+    to right,
+    magenta,
+    cyan 50%,
+    white 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-elements ul a:hover {
+  background-position: 0;
+ }
+ 
+ .nav-elements ul a:hover::before {
+   width:100%;
+ }
+
+.nav-elements ul a:hover{
+  font-size: 24px;
+  font-weight: 400;
+  color: black;
+  text-decoration: none;
+}
+
+.nav-elements ul a.active:hover{
+  font-size: 24px;
+  font-weight: 400;
+  color: black;
   text-decoration: none;
 }
 
 .nav-elements ul a.active {
-  color: #574c4c;
+  color: white;
   font-weight: 500;
   position: relative;
 }
@@ -58,7 +99,7 @@ body {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #574c4c;
+  background-color: white;
 }
 
 @media (max-width: 768px) {
