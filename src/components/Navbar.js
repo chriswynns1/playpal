@@ -57,6 +57,7 @@ const Navbar = () => {
             <ul>
               {user ? (
                 <>
+                  <li><NavLink to="/play">Play</NavLink></li>
                   <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                   <li><NavLink to="/" onClick={handleSignOut}>Logout</NavLink></li>
                 </>

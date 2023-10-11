@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Login } from './components/Login';
 import Home from './components/Home';
-import Profile from './components/Profile';
 import Navbar from './components/Navbar';
 import Error from './components/Error';
 import RegSuccess from './components/RegSuccess'
@@ -11,6 +10,8 @@ import { checkUserAuthentication } from './components/Auth';
 import { AuthProvider } from './components/AuthenticationContext';
 import Redirect from './components/Redirect';
 import Dashboard from './components/Dashboard';
+import PlayWithFriends from './components/PlayWithFriends';
+import Discover from './components/Discover';
 
 
 function App() {
@@ -39,7 +40,6 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
           <Route
             path="/login"
             element={<Login setIsAuthenticated={setIsAuthenticated} />}
@@ -48,6 +48,9 @@ function App() {
           <Route path="/redirect" element={<Redirect />} />
           <Route path="*" element={<Error />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/newparty" element={<PlayWithFriends />} />
+
         </Routes>
       </Router>
       </AuthProvider>

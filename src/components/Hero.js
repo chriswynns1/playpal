@@ -6,7 +6,7 @@ function Hero(props) {
       <div>
         <section class="bg-gradient-to-r from-black to-blue-800 min-h-screen">
         
-          <section class="bg-center bg-no-repeat bg-[url('https://images.unsplash.com/photo-1636489953081-c4ebbd50fa3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')] bg-gray-700 bg-blend-multiply">
+          <section class="pt-10 bg-center bg-no-repeat bg-[url('https://images.unsplash.com/photo-1636489953081-c4ebbd50fa3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')] bg-gray-700 bg-blend-multiply">
               <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
                   <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Game discovery made simple.</h1>
                   <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">With PlayPal, finding a game to play with your friends has never been easier. </p>

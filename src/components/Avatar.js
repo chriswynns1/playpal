@@ -20,7 +20,7 @@ function Avatar({profilepic, username, steamId}) {
   return (
     <div className="max-w-sm backdrop-blur-sm bg-white/20 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:w-[500px]">
     <div className='flex flex-col items-center  justify-between pt-10'>
-        <img className='rounded-full'  src={(profilepic)} />
+        <img className='rounded-full' src={(profilepic)} />
         <h2 className='items-center text-4xl pt-3 text-white'>{(username)}</h2>
         <h3 className='text-white'>Status: Online</h3>
         <div>

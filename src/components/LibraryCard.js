@@ -20,7 +20,6 @@ function LibraryCard({game, name, appid}) {
             if (img.data.length > 0) {
                 firstImageUrl = img.data[0].url;
                 setImageUrl(firstImageUrl);
-                console.log('first image url: ', firstImageUrl);
             }
             } catch (error) {
             console.error('Error fetching game info:', error);
@@ -39,7 +38,7 @@ function LibraryCard({game, name, appid}) {
                 <a href={`https://store.steampowered.com/app/${appid}`} target="_blank">
                     <h5 class="mb-2 text-xl tracking-tight text-white">{name}</h5>
                 </a>
-                <p class="font-normal text-white dark:text-gray-400">{appid}</p>
+                {/*<p class="font-normal text-white dark:text-gray-400">{appid}</p>*/}
             </div>
         </div>
     </div>
