@@ -64,7 +64,7 @@ const Navbar = () => {
               ) : (
                 <>
                   <li className='border rounded-lg p-1 bg-black'>
-                  <a href="http://localhost:5000/auth/steam">
+                  <a href="https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/auth/steam">
                     Sign in with Steam
                   </a>
                   </li>

@@ -10,7 +10,7 @@ function Avatar({profilepic, username, steamId}) {
     // handle the click to refresh steam library
     const handleClick = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/refresh/${steamId}`);
+        const response = await axios.get(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/${steamId}`);
         toast("Steam library refreshed! ✅");
       } catch (error) {
         console.error('error', error);

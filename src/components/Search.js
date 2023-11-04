@@ -6,34 +6,27 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer, toast} from 'react-toastify';
 
 
-function Search({ steamId, onSelectedFriendsChange, onAddFriendToParty }) {
+function Search({ steamId, docId, user }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [friendsData, setFriends] = useState(null);
     const [selectedFriends, setSelectedFriends] = useState([]);
-    const [docId, setDocId] = useState(null);
 
+    // useEffect to add user's steam id to the party automagically
     useEffect(() => {
-        let isMounted = true;
-    
-        const fetchDocId = async () => {
-            try { 
-                const response = await axios.get(`http://localhost:5000/newparty/${steamId}`);
-                if (isMounted) {
-                    setDocId(response.data.docid);
-                    //console.log('DOCUMENT ID: ', response.data.docid);
-                }
-            } catch (error) {
-                console.error('Error talking to Express API:', error);
-            }
-        };
-    
-        fetchDocId();
-    
-        return () => {
-            isMounted = false; // Set to false when the component is unmounted
-        };
-    }, [steamId]);
+      const addPartyLeader = async () => {
+        try {
+          await updateDoc(doc(db, 'parties', docId), {
+            partyMembers: arrayUnion(steamId),
+            personaNames: arrayUnion(user)
+          });
+        } catch (error) {
+          console.error('error adding party lead: ', error);
+        }
+      }
+
+      addPartyLeader();
+    },[steamId, docId, user]);
 
 
     // ask firebase for the friends list
@@ -78,7 +71,6 @@ function Search({ steamId, onSelectedFriendsChange, onAddFriendToParty }) {
       // Handle the selection of a suggestion, e.g., navigate to the friend's profile
       console.log("Selected Friend:", selectedFriend);
       addFriendToParty(selectedFriend, docId, steamId);
-      onAddFriendToParty(selectedFriend, docId);
     };
   
 async function addFriendToParty(selectedFriend, docId, steamId) {
@@ -113,14 +105,14 @@ async function addFriendToParty(selectedFriend, docId, steamId) {
   
         {/* Display suggestions */}
         {searchTerm.trim() !== "" && (
-          <ul className="p-0 backdrop-blur-sm text-white bg-white/20 max-w-md rounded-lg">
+          <ul className="p-0 backdrop-blur-sm text-white bg-white/20 max-w-sm rounded-lg">
             {suggestions.map((friend) => (
               <li
                 className="hover:bg-blue-800 rounded-lg"
                 key={friend.steamid}
                 onClick={() => handleSelectSuggestion(friend)}
               >
-                <div className="p-4 flex text-2xl ml-2">
+                <div className="p-4 flex text-xl ml-2">
                   <img
                     className="rounded-full cursor-pointer"
                     src={friend.avatarMedium}

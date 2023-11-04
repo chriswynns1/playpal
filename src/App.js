@@ -32,7 +32,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!user);
 
   return (
-    <div>
+    <div className='bg-gradient-to-r from-black to-blue-800 min-h-screen'>
       <AuthProvider>
       <Router>
         <div className="header">

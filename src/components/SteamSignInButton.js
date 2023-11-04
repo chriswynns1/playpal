@@ -6,7 +6,7 @@ const SteamSignInButton = () => {
   const handleSteamSignIn = async () => {
     try {
       // Make a request to your server to get the custom token
-      const response = await axios.get('http://localhost:5000/testapi');
+      const response = await axios.get('https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/testapi');
       const customToken = response.data.customToken;
 
       // Initialize Firebase Authentication

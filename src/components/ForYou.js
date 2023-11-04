@@ -13,7 +13,7 @@ function ForYou({name}) {
     const getRec = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/recommend/${name}`
+          `https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/recommend/${name}`
         );
         const appInfo = await response.json();
         setAppInfo(appInfo.data);
@@ -22,7 +22,7 @@ function ForYou({name}) {
         const formattedGameName = recName.replace(/\s+/g, '-');
         console.log('formatted: ', formattedGameName);
 
-        const gameInfoResponse = await axios.get(`http://localhost:5000/recommend/getgameinfo/${formattedGameName}`)
+        const gameInfoResponse = await axios.get(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/recommend/getgameinfo/${formattedGameName}`)
         const gameInfo = gameInfoResponse;
         
 

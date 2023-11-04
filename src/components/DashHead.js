@@ -11,7 +11,7 @@ function DashHead({appid}) {
   useEffect(() => {
     const fetchGameInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/steamgrid/${appid}`);
+        const response = await fetch(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/steamgrid/${appid}`);
         const data = await response.json();
         setGameInfo(data.data);  // Assuming the API response has the information you need
         console.log('success', data.data);
@@ -25,7 +25,7 @@ function DashHead({appid}) {
   useEffect(() => {
     const fetchImageInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/steamgrid/hero/${appid}`);
+        const response = await fetch(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/steamgrid/hero/${appid}`);
         const img = await response.json();
         setImgInfo(img.data);
 
@@ -47,7 +47,7 @@ function DashHead({appid}) {
   useEffect(() => {
     const fetchPriceInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/steam/price/${appid}`);
+        const response = await fetch(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/steam/price/${appid}`);
         const priceData = await response.json();
         setPriceInfo(priceData.data);  // Assuming the API response has the information you need
         

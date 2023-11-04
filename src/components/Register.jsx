@@ -42,7 +42,7 @@ export const Register = (props) => {
             
                     <button onClick={register} type="submit">Register</button>
                 </form>
-                <a href='http://localhost:5000/auth/steam'>Login with Steam</a>
+                <a href='https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/auth/steam'>Login with Steam</a>
             <br></br>
             <a href="/login" className="white-text">Already have an account? Log in here.</a>
             </div>

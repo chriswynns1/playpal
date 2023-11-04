@@ -1,80 +1,119 @@
 import React, { useEffect, useState } from "react";
 import Search from "./Search";
+import axios from 'axios';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import {db} from '../firebase-config';
-import {doc, getDoc} from 'firebase/firestore';
+import { db } from '../firebase-config';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 
-function PlayWithFriends({onAddFriendToParty}) {
+function PlayWithFriends() {
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState(null);
-  const [selectedFriends, setSelectedFriends] = useState([]);
-  const [isPartyFull, setIsPartyFull] = useState(false);
   const [partyDocumentId, setPartyDocumentId] = useState(null);
   const [partyData, setPartyData] = useState([]);
+  const [steamId, setSteamId] = useState('');
+  const [username, setUsername] = useState('');
 
+
+  // trying to create document id here
   // making sure user is logged in
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+      if (user) {
+        setSteamId(user.uid);
+      }
     });
+    
+    const fetchPartyID = async () => {
+      try {
+        const response = await axios.get(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/newparty/${steamId}`);
+        if (response.data && response.data.docid) {
+          setPartyDocumentId(response.data.docid);
+          console.log('in auth useeffect: ', response.data.docid);
+          console.log('partydocid: ', partyDocumentId)
+        }
+      } catch (error) {
+        console.error('Error fetching party ID:', error);
+      }
+    };
+
+    if (user) {
+      fetchPartyID();
+    }
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   useEffect(() => {
-    const fetchParty = async () => {
-        try {
-            const snap = await getDoc(doc(db, "parties", partyDocumentId));
-            if (snap.exists()) {
-                const partyData = snap.data();
-                setPartyData(partyData || []);
-                console.log('partydata: ', partyData);
-            }
-            else {
-                console.log('cant find document');
-            }
-        } catch (error) {
-            console.error('error fetching party doc: ', error);
+    const fetchData = async () => {
+      try {
+        const snap = await getDoc(doc(db, "users", user.uid));
+        if (snap.exists()) {
+          const userData = snap.data();
+          setUserData(userData);
+          const username = userData.username;
+          setUsername(username);
+        } else {
+          console.log("No such document");
         }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    // Fetch data only if user is authenticated
+    if (user) {
+      fetchData();
     }
+  }, [user]);
+
+  useEffect(() => {
     if (partyDocumentId) {
-        fetchParty();
+      const docRef = doc(db, "parties", partyDocumentId);
+      const fetchParty = async () => {
+        try {
+          const snap = await getDoc(docRef);
+          if (snap.exists()) {
+            const partyData = snap.data();
+            setPartyData(partyData);
+            console.log('partydata: ', partyData.personaNames);
+          } else {
+            console.log('cant find document');
+          }
+        } catch (error) {
+          console.error('error fetching party doc: ', error);
+        }
+      }
+
+      const unsubscribe = onSnapshot(docRef, (snap) => {
+        if (snap.exists()) {
+          const partyData = snap.data();
+          setPartyData(partyData);
+          console.log('updated data: ', partyData);
+        } else {
+          console.log('cant find document');
+        }
+      });
+
+      fetchParty();
+
+      return () => unsubscribe();
     }
-}, [user]);
+  }, [partyDocumentId, user]);
 
 
-  const handleAddFriendToParty = (friend, documentId) => {
-    console.log('Document ID:', documentId);
-    setPartyDocumentId(documentId);
+  const handleFindGames = async () => {
+    const response = await axios.get(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/findgames/${partyDocumentId}`)
 
-  };
 
-  const handleSelectedFriendsChange = (newSelectedFriends) => {
-    if (newSelectedFriends.length === 6) {
-      setIsPartyFull(true);
-      toast.error("❌ Party is full! Maximum 6 members allowed.");
-    } else {
-      setIsPartyFull(false);
-    }
+  }
 
-    setSelectedFriends(newSelectedFriends);
-  };
-  const handleRemoveFriendFromParty = (steamid) => {
-    const updatedFriends = selectedFriends.filter(
-      (friend) => friend.steamid !== steamid
-    );
-    setSelectedFriends(updatedFriends);
-    setIsPartyFull(updatedFriends.length >= 6);
-    toast.success("✔️ Friend removed from the party.");
-    console.log("friends now: ", selectedFriends);
-  };
   if (!user) {
     return <div>Please sign in to access the profile.</div>;
   }
@@ -82,70 +121,62 @@ function PlayWithFriends({onAddFriendToParty}) {
   return (
     <div>
       <div className="bg-gradient-to-r from-black to-blue-800 min-h-screen">
-        <div className="lg:mx-80 mx-10 flex flex-col lg:flex-row justify-between items-center relative">
-          <div className="mt-40 lg:ml-10 text-center lg:text-left">
-            <h1 className="text-white text-6xl">Who's playing today?</h1>
-            <Search
+        <div className="pt-40 mx-80 animate-slideup text-white text-6xl">
+          Who's playing today?
+        </div>
+        <div className="flex justify-between pt-5 mx-80 gap-8">
+          <div className="animate-slideup flex-initial w-80 ">
+          <Search
               steamId={user.uid}
-              onSelectedFriendsChange={handleSelectedFriendsChange}
-              onAddFriendToParty={handleAddFriendToParty}
-            />
+              docId={partyDocumentId}
+              user={username}
+          />
           </div>
-
-          <div className="lg:mr-80 p-4 mt-40 text-white text-2xl backdrop-blur-sm bg-white/20 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-grow absolute top-[60px] right-1">
-            <div className="flex flex-col">
-            <p>Party ID: {partyDocumentId} {partyData.partyMembers?.length || 0} / 6</p>
-            {partyData.partyMembers && partyData.partyMembers.map((friend, index) => (
-  <div
-    key={friend.steamid}
-    className={`flex items-center justify-between ${
-      index > 0 ? "mt-2" : ""
-    }`}
-  >
-    <div className="flex items-center">
-      <p className="text-white text-sm ml-2">
-        {partyData.personaname}
-      </p>
-    </div>
-    {/* Add the delete button (emoji) */}
-    <a
-      className="cursor-pointer ml-1 "
-      role="img"
-      aria-label="Delete"
-      onClick={() => handleRemoveFriendFromParty(friend.steamid)}
-      class="inline-block rounded-full  bg-black border-white p-3 text-white hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-500"
-      href="#"
-    >
-      <span class="sr-only"> Remove </span>
-
-      <svg
-        className="fill-white"
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-      >
-        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-      </svg>
-    </a>
-  </div>
-))}
+          <div className="flex w-60">
+            <div className="animate-slideup mt-2 p-2 backdrop-blur-sm bg-white/20 rounded-lg shadow object-contain h-60 w-60">
+            <p className="text-white">
+                  {partyData.partyMembers?.length || 0}/6 members
+                </p>
+                <ul className="text-white">
+                  {partyData &&
+                    partyData.personaNames &&
+                    partyData.personaNames.map((name, index) => (
+            <li key={index}>{name}</li>
+                    ))}
+                </ul>
             </div>
           </div>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
+          <div className="flex-auto">
+          <div className="animate-slideup pt-2">
+            <button
+             type="button"
+             onClick={handleFindGames}
+              className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+            >
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md text-3xl group-hover:bg-opacity-0">
+                Find Games
+              </span>
+            </button>
+          </div>
+          </div>
         </div>
+
+
+
+
       </div>
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
     </div>
   );
 }

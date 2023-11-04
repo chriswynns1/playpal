@@ -10,7 +10,7 @@ function LibraryCard({game, name, appid}) {
     useEffect(() => {
         const fetchImageInfo = async () => {
             try {
-            const response = await fetch(`http://localhost:5000/steamgrid/vert/${appid}`);
+            const response = await fetch(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/steamgrid/vert/${appid}`);
             const img = await response.json();
             setImgInfo(img.data);
 

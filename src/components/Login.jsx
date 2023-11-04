@@ -11,7 +11,7 @@ export const Login = () => {
         <div className="App">
             <div className="auth-form-container">
                 <h2>Login</h2>
-                <a href="http://localhost:5000/auth/steam"><img src={require('../assets/sits.png')} /></a>
+                <a href="https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/auth/steam"><img src={require('../assets/sits.png')} /></a>
             </div>
         </div>
     )
