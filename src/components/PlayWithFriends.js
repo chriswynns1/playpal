@@ -167,7 +167,7 @@ function PlayWithFriends() {
             </div>
           </div>
           <div className="flex-auto">
-          <div className="text-white">
+          <div className="text-white animate-slideup">
             Give your party a name:
             <input
               type="text"

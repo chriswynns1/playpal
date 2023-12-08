@@ -12,7 +12,8 @@ import Redirect from './components/Redirect';
 import Dashboard from './components/Dashboard';
 import PlayWithFriends from './components/PlayWithFriends';
 import Discover from './components/Discover';
-
+import Profile from './components/Profile';
+import Play from './components/Play';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -50,7 +51,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/newparty" element={<PlayWithFriends />} />
-
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/play" element={<Play />} />
         </Routes>
       </Router>
       </AuthProvider>

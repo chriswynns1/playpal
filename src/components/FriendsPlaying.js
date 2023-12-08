@@ -13,7 +13,7 @@ return (
     </a>
     <div class="p-3">
         <a href="#">
-            <h5 class="mb-2 text-2xl tracking-tight text-white">test</h5>
+            <h5 class="mb-2 text-2xl tracking-tight text-white">Project Zomboid</h5>
         </a>
         <p class="font-normal text-white dark:text-gray-400">$19.99</p>
     </div>
