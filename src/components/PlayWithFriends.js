@@ -7,7 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { db } from '../firebase-config';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { useNavigate } from "react-router-dom";
 
 function PlayWithFriends() {
   const [userData, setUserData] = useState(null);
@@ -16,8 +17,8 @@ function PlayWithFriends() {
   const [partyData, setPartyData] = useState([]);
   const [steamId, setSteamId] = useState('');
   const [username, setUsername] = useState('');
-
-
+  const [partyName, setPartyName] = useState('');
+  const navigate = useNavigate();
   // trying to create document id here
   // making sure user is logged in
   useEffect(() => {
@@ -109,10 +110,29 @@ function PlayWithFriends() {
 
 
   const handleFindGames = async () => {
-    const response = await axios.get(`https://us-central1-playpal-63bee.cloudfunctions.net/playpalApi/findgames/${partyDocumentId}`)
+    try {
+      // First, update the party document with the party name
+      const partyDocRef = doc(db, "parties", partyDocumentId);
+      await updateDoc(partyDocRef, { partyName });
+  
+      // Then, make the API call to find common games
+      const response = await axios.get(`http://localhost:5000/findgames/${partyDocumentId}`);
+      // Handle the response as needed
+      toast("Success! Redirecting you... ✅");
+      // Introduce a 3-second delay before redirecting
+      setTimeout(() => {
+        // Redirect to localhost:3000/play after 3 seconds
+        navigate("/play");
+      }, 3000);
+    } catch (error) {
+      console.error("Error handling find games:", error);
+      // Handle the error as needed
+    }
+  };
 
-
-  }
+  const handlePartyNameChange = (event) => {
+    setPartyName(event.target.value);
+  };
 
   if (!user) {
     return <div>Please sign in to access the profile.</div>;
@@ -147,6 +167,16 @@ function PlayWithFriends() {
             </div>
           </div>
           <div className="flex-auto">
+          <div className="text-white">
+            Give your party a name:
+            <input
+              type="text"
+              value={partyName}
+              onChange={handlePartyNameChange}
+              className="w-full backdrop-blur-sm text-white bg-white/20 h-14 pl-5 rounded-lg focus:outline-none hover:cursor-pointer"
+            />
+
+          </div>
           <div className="animate-slideup pt-2">
             <button
              type="button"
@@ -154,7 +184,7 @@ function PlayWithFriends() {
               className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
             >
               <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md text-3xl group-hover:bg-opacity-0">
-                Find Games
+                Create New Party
               </span>
             </button>
           </div>
